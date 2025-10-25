@@ -1,14 +1,5 @@
 import { useState, useEffect, useRef} from "react";
-const CHORDS = ["CM7", "Dm7", "Em7", "FM7", "G7", "Am7", "Bdim",
-  "Cm7","C7", "D7", "DM7", "E7", "EM7", "F7", "Fm7", "Gm7", "GM7", "A7", "AM7", "B7", "Bm7",
-  "C#m7", "C#M7", "C#7", "Db7","DbM7", "Dbm7", "D#7", "D#M7", "D#m7", 
-  "Eb7", "EbM7", "Ebm7",
-  "F#7", "F#M7", "F#m7",
-  "G#7", "G#M7", "G#m7",
-  "Ab7", "AbM7", "Abm7",
-  "A#7", "A#M7", "A#m7",
-  "B#7", "B#M7", "B#m7",
-];
+import { CHORDS } from "./constants/chords";
 
 export default function App() {
   const [tempo, setTempo] = useState(80);
@@ -68,13 +59,6 @@ export default function App() {
       <h1 className="text-5xl font-bold">{currentChord}</h1>
       <p className="text-xl">Beat: {beat + 1}</p>
       <div className="flex space-x-4">
-        <button
-          onClick={() => setIsPlaying(!isPlaying)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          {isPlaying ? "Stop" : "Start"}
-        </button>
-
         <div className="flex items-center space-x-2">
           <input
             type="number"
@@ -84,6 +68,14 @@ export default function App() {
             />
           <span className="text-lg text-gray-700">BPM</span>
         </div>
+      </div>
+      <div className="py-20 ">
+        <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="px-4 py-8 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300 ease-in-out"
+          >
+            {isPlaying ? "Stop" : "Start"}
+        </button>
       </div>
     </div>
   )

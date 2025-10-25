@@ -1,0 +1,10 @@
+export const CHORDS = ["CM7", "Dm7", "Em7", "FM7", "G7", "Am7", "Bdim",
+  "Cm7","C7", "D7", "DM7", "E7", "EM7", "F7", "Fm7", "Gm7", "GM7", "A7", "AM7", "B7", "Bm7",
+  "C#m7", "C#M7", "C#7", "Db7","DbM7", "Dbm7", "D#7", "D#M7", "D#m7", 
+  "Eb7", "EbM7", "Ebm7",
+  "F#7", "F#M7", "F#m7",
+  "G#7", "G#M7", "G#m7",
+  "Ab7", "AbM7", "Abm7",
+  "A#7", "A#M7", "A#m7",
+  "B#7", "B#M7", "B#m7",
+];
