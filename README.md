@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# Piano Chords - ピアノコード練習アプリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ピアノのコード練習をサポートするメトロノーム付きWebアプリケーションです。テンポに合わせてランダムにコードが表示され、リアルタイムで練習できます。
 
-Currently, two official plugins are available:
+## 機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **メトロノーム機能**：Web Audio APIを使用した本格的なメトロノーム
+- **コード表示**：4拍ごとにランダムなコードを表示（CM7、Dm7、Em7など多数のコードに対応）
+- **テンポ調整**：40～200 BPMの範囲で自由に調整可能
+- **再生/停止**：ワンクリックでメトロノームの開始・停止
+- **PWA対応**：オフラインでの利用可能
 
-## React Compiler
+## 技術スタック
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **フレームワーク**：React 19.1.1
+- **ビルドツール**：Vite 7.1.7
+- **言語**：TypeScript 5.9.3
+- **スタイリング**：Tailwind CSS 4.1.14
+- **PWA**：vite-plugin-pwa 1.1.0
 
-## Expanding the ESLint configuration
+## インストール
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 開発
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+開発サーバーを起動します：
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+## ビルド
+
+本番環境用にビルドします：
+
+```bash
+npm run build
+```
+
+ビルド後、プレビューで確認できます：
+
+```bash
+npm run preview
+```
+
+## コード一覧
+
+現在、以下のコードに対応しています：
+- Major 7th：CM7、DM7、EM7など
+- Minor 7th：Dm7、Em7、Fm7など
+- Dominant 7th：C7、D7、E7など
+- Diminished：Bdimなど
+
+## プロジェクト構成
+
+```
+src/
+├── components/          # React コンポーネント
+│   ├── ChordDisplay.tsx # コード表示コンポーネント
+│   ├── Controls.tsx     # テンポ・再生ボタンコンポーネント
+│   └── chords.ts        # コンポーネント関連
+├── constants/           # 定数定義
+│   └── chords.ts        # コード一覧
+├── hooks/              # カスタムフック
+│   └── useMetronome.ts # メトロノーム機能フック
+├── App.tsx             # ルートコンポーネント
+└── main.tsx            # エントリーポイント
+```
+
+## 使い方
+
+1. アプリを開く
+2. 再生ボタン（▶️）をクリックしてメトロノームを開始
+3. テンポスライダーで BPM を調整
+4. 画面に表示されるコードに合わせてピアノを演奏
+5. 停止ボタン（⏹️）で終了
+
+メトロノームは4拍ごとにランダムなコードに変更され、各拍でメトロノームが鳴ります（4拍目は高い音）。
+
+## ライセンス
+
+MIT
