@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { CHORDS } from "../components/chords";
+import { useState, useEffect, useRef } from 'react';
+import { CHORDS } from '../components/chords';
 
 export const useMetronome = (isPlaying: boolean, tempo: number) => {
   const [currentChord, setCurrentChord] = useState(CHORDS[0]);
@@ -8,10 +8,10 @@ export const useMetronome = (isPlaying: boolean, tempo: number) => {
 
   useEffect(() => {
     if (!isPlaying) {
-      if(audioCtxRef.current){
+      if (audioCtxRef.current) {
         audioCtxRef.current.close();
         audioCtxRef.current = null;
-      } 
+      }
       return;
     }
 
@@ -22,7 +22,7 @@ export const useMetronome = (isPlaying: boolean, tempo: number) => {
     const interval = (60 / tempo) * 1000;
     const audioCtx = audioCtxRef.current;
     const id = setInterval(() => {
-      setBeat((currentBeat) =>{
+      setBeat((currentBeat) => {
         const pitch = currentBeat === 3 ? 880 : 600;
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -33,16 +33,15 @@ export const useMetronome = (isPlaying: boolean, tempo: number) => {
         osc.start();
         osc.stop(audioCtx.currentTime + 0.05);
         const nextBeat = (currentBeat + 1) % 4;
-        if (nextBeat === 0){
+        if (nextBeat === 0) {
           setCurrentChord(CHORDS[Math.floor(Math.random() * CHORDS.length)]);
         }
         return nextBeat;
-        });
-      }, interval);
+      });
+    }, interval);
 
-      return () => clearInterval(id);
+    return () => clearInterval(id);
   }, [isPlaying, tempo]);
 
   return { currentChord, beat };
 };
-

@@ -10,11 +10,11 @@ export const ChordDisplay = ({ chord, beat }: ChordDisplayProps) => {
         <h1 className="text-6xl font-bold text-white tracking-wide">{chord}</h1>
       </div>
       <div className="flex space-x-3">
-        {[0, 1, 2, 3].map(i => (
+        {[0, 1, 2, 3].map((i) => (
           <span
             key={i}
             className={`text-3xl transition-colors ${
-              i === beat ? "text-amber-500" : "text-gray-600"
+              i === beat ? 'text-amber-500' : 'text-gray-600'
             }`}
           >
             ●
@@ -24,4 +24,3 @@ export const ChordDisplay = ({ chord, beat }: ChordDisplayProps) => {
     </div>
   );
 };
-
