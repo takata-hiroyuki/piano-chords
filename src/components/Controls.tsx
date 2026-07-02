@@ -5,27 +5,26 @@ interface ControlsProps {
   setIsPlaying: (isPlaying: boolean) => void;
 }
 
-export const Controls = ({ tempo, setTempo, isPlaying, setIsPlaying }: ControlsProps) => {
+export function Controls({ tempo, setTempo, isPlaying, setIsPlaying }: ControlsProps) {
   return (
-    <>
-      <div className="flex items-center space-x-2">
+    <div className="flex flex-col items-center space-y-4 w-64">
+      <div className="flex items-center space-x-3 w-full">
         <input
-          type="number"
+          type="range"
+          min="40"
+          max="200"
           value={tempo}
           onChange={(e) => setTempo(Number(e.target.value))}
-          className="w-20 px-2 py-1 border rounded"
+          className="w-full accent-amber-500"
         />
-        <span className="text-lg text-gray-700">BPM</span>
+        <span className="text-amber-400 font-semibold w-16 text-right">{tempo} BPM</span>
       </div>
-      <div className="py-20 ">
-        <button
-          onClick={() => setIsPlaying(!isPlaying)}
-          className="px-4 py-8 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          {isPlaying ? "Stop" : "Start"}
-        </button>
-      </div>
-    </>
+      <button
+        onClick={() => setIsPlaying(!isPlaying)}
+        className="w-full px-6 py-3 text-lg font-bold text-gray-900 bg-amber-500 rounded-lg hover:bg-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
+      >
+        {isPlaying ? "⏹ STOP" : "▶ PLAY"}
+      </button>
+    </div>
   );
-};
-
+}
