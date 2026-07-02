@@ -1,24 +1,71 @@
-import { useState } from 'react';
 import { useMetronome } from './hooks/useMetronome';
-import { ChordDisplay } from './components/ChordDisplay';
-import { Controls } from './components/Controls';
+import { useBpmKnobDrag } from './hooks/useBpmKnob';
+import { KeyDropdown } from './components/KeyDropdown';
+import { ChordRing } from './components/ChordRing';
+import { FormulaPill } from './components/FormulaPill';
+import { PianoKeyboard } from './components/PianoKeyboard';
+import { BpmControl } from './components/BpmControl';
+import { PlayButton } from './components/PlayButton';
 
 export default function App() {
-    const [tempo, setTempo] = useState(80);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const { currentChord, beat } = useMetronome(isPlaying, tempo);
+    const {
+        playing,
+        beat,
+        bpm,
+        keyIdx,
+        chord,
+        dropdownOpen,
+        ringRef,
+        toggle,
+        setBpm,
+        selectKey,
+        toggleDropdown,
+        closeDropdown,
+    } = useMetronome();
+
+    const onKnobPointerDown = useBpmKnobDrag(setBpm);
+    const isDownbeat = playing && beat === 0;
+
     return (
-        <div className="flex flex-col items-center justify-center h-screen space-y-6 bg-gray-900">
-            <h2 className="text-amber-500 text-lg tracking-widest uppercase font-semibold">
-                piano chords
-            </h2>
-            <ChordDisplay chord={currentChord} beat={beat} />
-            <Controls
-                tempo={tempo}
-                setTempo={setTempo}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-            />
+        <div
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f1ece2',
+            }}
+        >
+            <div
+                style={{
+                    width: 380,
+                    background: 'oklch(97% 0.012 75)',
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '30px 28px 28px',
+                    boxSizing: 'border-box',
+                    color: 'oklch(24% 0.015 60)',
+                    borderRadius: 18,
+                    boxShadow: `0 12px 30px rgba(40,30,20,.14), inset 0 0 0 ${isDownbeat ? 5 : 0}px oklch(62% 0.16 35 / 35%)`,
+                    transition: 'box-shadow .5s ease-out',
+                }}
+            >
+                <KeyDropdown
+                    keyIdx={keyIdx}
+                    degree={chord.degree}
+                    open={dropdownOpen}
+                    onToggle={toggleDropdown}
+                    onClose={closeDropdown}
+                    onSelect={selectKey}
+                />
+                <ChordRing chord={chord} beat={beat} playing={playing} ringRef={ringRef} />
+                <FormulaPill formula={chord.formula} />
+                <PianoKeyboard notes={chord.notes} />
+                <BpmControl bpm={bpm} onSliderChange={setBpm} onKnobPointerDown={onKnobPointerDown} />
+                <PlayButton playing={playing} onClick={toggle} />
+            </div>
         </div>
     );
 }
