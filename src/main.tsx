@@ -6,7 +6,7 @@ import { registerSW } from 'virtual:pwa-register';
 registerSW();
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <StrictMode>
+        <App />
+    </StrictMode>,
 );
