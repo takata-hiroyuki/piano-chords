@@ -1,16 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CHORD_COUNT, KEYS, buildChordSet } from '../constants/chords';
-
-const MIN_BPM = 40;
-const MAX_BPM = 220;
-
-function pickNextChordIdx(currentIdx: number) {
-    let next = currentIdx;
-    while (next === currentIdx) {
-        next = Math.floor(Math.random() * CHORD_COUNT);
-    }
-    return next;
-}
+import { clampBpm, pickNextChordIdx } from './metronomeLogic';
 
 export function useMetronome() {
     const [playing, setPlaying] = useState(false);
@@ -61,7 +51,7 @@ export function useMetronome() {
                 const nextBeat = (currentBeat + 1) % 4;
                 playClick(nextBeat === 0);
                 if (nextBeat === 0) {
-                    setChordIdx(pickNextChordIdx);
+                    setChordIdx((idx) => pickNextChordIdx(idx, CHORD_COUNT));
                 }
                 return nextBeat;
             });
@@ -92,7 +82,7 @@ export function useMetronome() {
     }, []);
 
     const setBpm = useCallback((value: number) => {
-        setBpmState(Math.max(MIN_BPM, Math.min(MAX_BPM, Math.round(value))));
+        setBpmState(clampBpm(value));
     }, []);
 
     const selectKey = useCallback((idx: number) => {

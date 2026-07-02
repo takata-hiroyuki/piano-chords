@@ -10,7 +10,8 @@
         "lint: fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
         "lint: css": "stylelint \"src/**/*.{css,scss}\"",
         "lint:css:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "test": "vitest run"
     },
     "dependencies": {
         "react": "^19.1.1",
@@ -39,6 +40,7 @@
         "typescript": "~5.9.3",
         "typescript-eslint": "^8.62.1",
         "vite": "^7.1.7",
-        "vite-plugin-pwa": "^1.1.0"
+        "vite-plugin-pwa": "^1.1.0",
+        "vitest": "^4.1.9"
     }
 }
